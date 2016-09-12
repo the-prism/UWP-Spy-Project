@@ -1,0 +1,12 @@
+﻿<Application
+    x:Class="CampExploUWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CampExploUWP"
+    RequestedTheme="Dark">
+    <Application.Resources>
+        <FontFamily x:Key="FontFutura">Futura</FontFamily>
+        
+    </Application.Resources>
+
+</Application>

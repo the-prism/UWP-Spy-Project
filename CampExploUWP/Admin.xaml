@@ -1,0 +1,181 @@
+﻿<Page
+    x:Class="CampExploUWP.Admin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CampExploUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource FontFutura}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="80,30,20,20">
+            <Pivot x:Name="admin_pivot" Title="Administration des Utilisateurs" SelectionChanged="update_admin_pivot" FontFamily="{StaticResource FontFutura}">
+
+                <Pivot.Resources>
+                    <Style TargetType="PivotHeaderItem">
+                        <Setter Property="FontFamily" Value="{StaticResource FontFutura}" />
+                    </Style>
+                </Pivot.Resources>
+
+                <PivotItem x:Name="add_user" Header="Ajouter un utilisateur" FontFamily="{StaticResource FontFutura}">
+                    <StackPanel x:Name="contentPanel" Margin="10,10,0,0">
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="new_user" Width="300" Header="Nom d'utilisateur" PlaceholderText="Utilisateur" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="new_pwd" Width="300" Header="Mot de passe" PlaceholderText="Mot de passe" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="new_perm" Width="300" Header="Permissions" PlaceholderText="Permission" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="login" Margin="0,20,0,0" Orientation="Horizontal">
+                            <Button x:Name="inputButton" Content="Ajouter" Click="add_new_user" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="mod_user_final" Content="Modifier l'utilisateur" Click="mod_user_final_Click" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock x:Name="new_user_info" Margin="0,10,0,0" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock x:Name="user_id" Text="" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                            <TextBox x:Name="mod_user" Width="50" Header="User ID" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="mod_user_button" Content="Modifier" Click="mod_user_button_Click" Margin="0,26,0,0" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <TextBlock x:Name="greetingOutput" FontFamily="{StaticResource FontFutura}"/>
+                    </StackPanel>
+                </PivotItem>
+
+                <PivotItem x:Name="list_users" Header="Liste d'utilisateurs" FontFamily="{StaticResource FontFutura}">
+                    <StackPanel>
+                        <ListView x:Name="user_list">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"  Text="{Binding Id}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Pwd}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Permission}" FontFamily="{StaticResource FontFutura}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Button x:Name="clear_all_users" Content="Supprimer TOUS les utilisateurs" Click="clear_all_user_db" FontFamily="{StaticResource FontFutura}"/>
+
+                    </StackPanel>
+                </PivotItem>
+
+
+
+                <PivotItem x:Name="admin_list_msg" Header="Liste des messages">
+                    <StackPanel>
+                        <Grid Margin="10,10,10,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Id" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock Grid.Column="1" Text="Sender" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock Grid.Column="2" Text="Destination" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock Grid.Column="3" Text="Titre" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock Grid.Column="4" Text="Message" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                        </Grid>
+                        <ListView x:Name="msg_list_admin" Height="300" SelectionChanged="msg_list_admin_SelectionChanged" FontFamily="{StaticResource FontFutura}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding Id}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding sender}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding destination}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding titre}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding message}" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                                    </Grid>
+
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="admin_msg_to_remove" Width="100" Margin="0,0,20,0" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="admin_delete_msg_id" Content="Supprimer le message" Click="admin_delete_msg_id_Click" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="admin_clear_all_message" Content="Supprimer TOUS les messages" Click="admin_clear_all_message_Click" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </PivotItem>
+
+                <PivotItem x:Name="admin_new_msg" Header="Envoyer un nouveau message" FontFamily="{StaticResource FontFutura}">
+
+                    <StackPanel x:Name="admin_new_msg_pannel" Margin="10,10,0,0">
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="admin_new_msg_sender" Width="300" Header="Message de" PlaceholderText="Sender" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="admin_new_msg_destination" Width="300" Header="Destinataire" PlaceholderText="Destinataire" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="admin_new_msg_title" Width="300" Header="Titre" PlaceholderText="Sujet" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBox x:Name="admin_new_msg_message" Width="800" Header="Message" HorizontalAlignment="Left" AcceptsReturn="True" Height="100" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="admin_send_msg" Margin="0,20,0,0">
+                            <Button x:Name="admin_send_button" Content="Ajouter" Click="admin_send_button_Click" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="mod_message" Content="Modifier le message" Click="mod_message_Click" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock x:Name="message_id" Text="" FontFamily="{StaticResource FontFutura}"/>
+                            <TextBlock x:Name="message_font" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                            <TextBox x:Name="mod_msg_id" Width="50" Header="Message ID" Margin="0,0,10,0" FontFamily="{StaticResource FontFutura}"/>
+                            <Button x:Name="mod_msg_button" Content="Modifier" Click="mod_msg_button_Click" Margin="0,26,0,0" FontFamily="{StaticResource FontFutura}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </PivotItem>
+
+
+            </Pivot>
+        </StackPanel>
+
+        <StackPanel Margin="80,30,20,20" VerticalAlignment="Bottom">
+            <TextBlock x:Name="login_as" Text="Déconnecter" Margin="0,0,0,10" FontFamily="{StaticResource FontFutura}" Foreground="#FFFFFF00"/>
+            <Button x:Name="admin_logout" Content="Se déconnecter" Click="admin_logout_Click" FontFamily="{StaticResource FontFutura}"/>
+        </StackPanel>
+
+        <Popup VerticalOffset="150" HorizontalOffset="150" x:Name="StandardPopup">
+            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                BorderThickness="2" Width="auto" Height="auto">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,50,50,50">
+                    <TextBlock x:Name="popup_msg" Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center" FontFamily="{StaticResource FontFutura}"/>
+                    <Button Content="Close" Margin="0,10,0,0" Click="ClosePopupClicked" HorizontalAlignment="Center" FontFamily="{StaticResource FontFutura}"/>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+
+    </Grid>
+</Page>

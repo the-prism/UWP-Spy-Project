@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="CampExploUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CampExploUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" FontFamily="Futura">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+
+
+            <!--Pivot content goes here-->
+            <StackPanel x:Name="contentPanel" Margin="100,30,0,0">
+                <TextBlock HorizontalAlignment="Left" Text="Connexion" FontSize="36" Foreground="#FFFFF300" FontWeight="Bold"/>
+                <StackPanel x:Name="inputUser" Margin="0,20,0,20">
+                    <TextBox x:Name="userInput" Width="300" Header="Nom d'utilisateur" PlaceholderText="Utilisateur" HorizontalAlignment="Left" FontFamily="{StaticResource FontFutura}"/>
+                </StackPanel>
+                <StackPanel x:Name="inputPass" Margin="0,0,0,0">
+                    <PasswordBox x:Name="passInput" Width="300" Header="Mot de passe" PlaceholderText="Mot de passe" HorizontalAlignment="Left" KeyDown="passInput_KeyDown" FontFamily="{StaticResource FontFutura}"/>
+                </StackPanel>
+                <StackPanel x:Name="login" Margin="0,20,0,0">
+                    <Button x:Name="inputButton" Content="Connexion" Click="action_login" FontFamily="{StaticResource FontFutura}" FontWeight="Bold"/>
+                    <TextBlock x:Name="loginError" Margin="0,10,0,0"/>
+                </StackPanel>
+                <TextBlock x:Name="greetingOutput"/>
+            </StackPanel>
+
+
+
+
+        </StackPanel>
+        <TextBlock x:Name="BuildPannel" Text="Build" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0"/>
+
+        <Popup VerticalOffset="150" HorizontalOffset="150" x:Name="StandardPopup">
+            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                BorderThickness="2" Width="auto" Height="auto">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,50,50,50">
+                    <TextBlock x:Name="popup_msg" Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center" FontFamily="{StaticResource FontFutura}"/>
+                    <Button Content="Close" Margin="0,10,0,0" Click="ClosePopupClicked" HorizontalAlignment="Center" FontFamily="{StaticResource FontFutura}"/>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</Page>
